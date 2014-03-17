@@ -13,6 +13,7 @@ func main() {
 	f, txt, err := capt.Create()
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
 	fo, err := os.Create("out.png")
