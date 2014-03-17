@@ -3,14 +3,11 @@ package gocaptcha
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"image"
 	"image/draw"
 	"image/png"
-	"io"
 	"io/ioutil"
 	"math/rand"
-	"os"
 	"strings"
 	"time"
 
@@ -34,7 +31,6 @@ type Capthca struct {
 	Length   int
 }
 
-
 func New() *Capthca {
 	return &Capthca{
 		Dpi:      72,
@@ -46,28 +42,26 @@ func New() *Capthca {
 	}
 }
 
-/*
 func (c *Capthca) Config(conf map[string]interface{}) {
-	if v, ok := conf["Dpi"]; ok{
-		c.Dpi = v
+	if v, ok := conf["Dpi"]; ok {
+		c.Dpi = v.(float64)
 	}
-	if v, ok := conf["Font"]; ok{
-		c.Font = v
+	if v, ok := conf["Font"]; ok {
+		c.Font = v.(string)
 	}
-	if v, ok := conf["FontSize"]; ok{
-		c.FontSize = v
+	if v, ok := conf["FontSize"]; ok {
+		c.FontSize = v.(float64)
 	}
-	if v, ok := conf["Width"]; ok{
-		c.Width = v
+	if v, ok := conf["Width"]; ok {
+		c.Width = v.(int)
 	}
-	if v, ok := conf["Height"]; ok{
-		c.Height = v
+	if v, ok := conf["Height"]; ok {
+		c.Height = v.(int)
 	}
-	if v, ok := conf["Length"]; ok{
-		c.Length = v
+	if v, ok := conf["Length"]; ok {
+		c.Length = v.(int)
 	}
 }
-*/
 
 func (c *Capthca) Create() (*bytes.Buffer, error) {
 	f := new(bytes.Buffer)
