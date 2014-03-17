@@ -63,18 +63,18 @@ func (c *Capthca) Config(conf map[string]interface{}) {
 	}
 }
 
-func (c *Capthca) Create() (*bytes.Buffer, error) {
+func (c *Capthca) Create() (*bytes.Buffer, string, error) {
 	f := new(bytes.Buffer)
 	txt := c.getText()
 
 	// Read the font data.
 	fontBytes, err := ioutil.ReadFile(c.Font)
 	if err != nil {
-		return f, err
+		return f, txt, err
 	}
 	font, err := freetype.ParseFont(fontBytes)
 	if err != nil {
-		return f, err
+		return f, txt, err
 	}
 
 	// Initialize the context.
@@ -99,7 +99,7 @@ func (c *Capthca) Create() (*bytes.Buffer, error) {
 	pt := freetype.Pt(x, y)
 	_, err = ft.DrawString(txt, pt)
 	if err != nil {
-		return f, err
+		return f, txt, err
 	}
 
 	i := random(1, 4)
@@ -120,14 +120,14 @@ func (c *Capthca) Create() (*bytes.Buffer, error) {
 	b := bufio.NewWriter(f)
 	err = png.Encode(b, rgba)
 	if err != nil {
-		return f, err
+		return f, txt, err
 	}
 	err = b.Flush()
 	if err != nil {
-		return f, err
+		return f, txt, err
 	}
 
-	return f, nil
+	return f, txt, nil
 }
 
 func (c *Capthca) getText() string {
