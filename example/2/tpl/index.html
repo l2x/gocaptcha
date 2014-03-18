@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+    <p><img src="/get/"></p>
+    <p>
+        <input type="text" name="captcha" value="" id="captcha">
+        <input type="button" value="submit" id="submit">
+    </p>
+    <p id="msg"></p>
+<script>
+$(function() {
+        $("#submit").on("click", function() {
+            var v = $("#captcha").val();
+            $.get("/check/?txt="+v, function(res) {
+                    $("#msg").text(res);
+            });
+        });
+        $("#captcha").on("focus", function(){
+                $("#msg").text("");
+        });
+})
+</script>
+</body>
+</html>
