@@ -1,0 +1,5 @@
+package gocaptcha
+
+import (
+	"testing"
+)
